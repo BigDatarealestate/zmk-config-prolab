@@ -1,24 +1,21 @@
-#include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
 / {
-    behaviors {
-        btclr_f: hold_tap_btclr_f {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOLD_TAP_BTCLR_F";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&kp X>, <&kp F>; 
-        };
-    };
-
     keymap {
         compatible = "zmk,keymap";
+
         default_layer {
             bindings = <
                 &kp A      &kp B      &kp C
-                &kp D      &kp E      &btclr_f
+                &kp D      &kp E      &lt 1 F  // 짧게 누르면 F, 길게 누르면 1번 레이어로 이동
+            >;
+        };
+
+        hold_layer { // ZMK는 레이어를 숫자로 인식합니다. 0=default, 1=hold
+            bindings = <
+                &trans     &trans     &trans
+                &trans     &trans     &bt BT_CLR // 홀드 동작을 여기에 배치
             >;
         };
     };
