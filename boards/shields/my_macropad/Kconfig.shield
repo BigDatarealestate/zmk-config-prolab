@@ -1,2 +1,3 @@
 config SHIELD_MY_MACROPAD
     def_bool $(shields_list_contains,my_macropad)
+    select ZMK_LAYOUT_MAPPING_MY_MACROPAD
