@@ -9,10 +9,7 @@
             label = "HOLD_TAP_BTCLR_F";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            
-            // 이 부분을 수정했습니다!
-            hold-binding = <&bt BT_CLR>;
-            tap-binding = <&kp F>;
+            bindings = <&bt BT_CLR>, <&kp F>;
         };
     };
 
