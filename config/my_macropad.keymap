@@ -9,7 +9,7 @@
             label = "HOLD_TAP_BTCLR_F";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&bt BT_CLR>, <&kp F>;
+            bindings = <&kp X>, <&kp F>; 
         };
     };
 
