@@ -1,13 +1,27 @@
-#include <behaviors.dtsi>
+#include <behaviors.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
 
 / {
+    // 1. 여기서 복잡한 동작을 미리 정의합니다.
+    behaviors {
+        btclr_f: hold_tap_btclr_f {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOLD_TAP_BTCLR_F";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&bt BT_CLR>, <&kp F>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
+
         default_layer {
+            // 2. 여기서 정의된 동작의 이름을 가져다 씁니다.
             bindings = <
-                &kp A  &kp B  &kp C
-                &kp D  &kp E  &kp F
+                &kp A      &kp B      &kp C
+                &kp D      &kp E      &btclr_f
             >;
         };
     };
