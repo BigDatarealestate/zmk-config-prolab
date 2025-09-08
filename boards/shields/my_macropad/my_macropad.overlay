@@ -1,16 +1,14 @@
-#include <dt-bindings/zmk/matrix_transform.h>
-
 / {
     zmk,kscan {
         compatible = "zmk,kscan-gpio-direct";
         label = "DIRECT_PINS";
         input-gpios
-            = <&pro_micro P0_17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&pro_micro P0_20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&pro_micro P0_22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&pro_micro P0_24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&pro_micro P1_00 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&pro_micro P1_02 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            = <&gpio0 17 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>   // 이전 P0.17 핀
+            , <&gpio0 20 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>   // 이전 P0.20 핀
+            , <&gpio0 22 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>   // 이전 P0.22 핀
+            , <&gpio0 24 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>   // 이전 P0.24 핀
+            , <&gpio1 0 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>    // 이전 P1.00 핀
+            , <&gpio1 2 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>    // 이전 P1.02 핀
             ;
     };
 };
