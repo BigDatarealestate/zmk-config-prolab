@@ -1,13 +1,23 @@
-#include <behaviors.dtsi>
+// 이 한 줄이 모든 동작(kp, lt, bt 등)을 정의하는 '사전'입니다.
+#include <behaviors.dtsi> 
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
 
 / {
     keymap {
         compatible = "zmk,keymap";
+
         default_layer {
             bindings = <
-                &kp A  &kp B  &kp C
-                &kp D  &kp E  &kp F
+                &kp A      &kp B      &kp C
+                &kp D      &kp E      &lt 1 F
+            >;
+        };
+
+        hold_layer {
+            bindings = <
+                &trans     &trans     &trans
+                &trans     &trans     &bt BT_CLR
             >;
         };
     };
