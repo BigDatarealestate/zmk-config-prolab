@@ -1,4 +1,6 @@
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
 
 / {
     zmk,kscan {
@@ -21,5 +23,15 @@
             RC(0,0) RC(0,1) RC(0,2)
             RC(1,0) RC(1,1) RC(1,2)
         >;
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+        default_layer {
+            bindings = <
+                &kp A  &kp B  &kp C
+                &kp D  &kp E  &kp F
+            >;
+        };
     };
 };
