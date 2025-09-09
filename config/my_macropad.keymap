@@ -3,33 +3,38 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
+    // 1. 복잡한 블루투스 동작에 'bt_clear_key' 라는 간단한 별명을 붙입니다.
+    key-presses {
+        compatible = "zmk,key-presses";
+
+        bt_clear_key: bt_clear_press {
+            bindings = <&bt BT_CLR_ALL>;
+        };
+    };
+
     behaviors {
-        // 1. 새로운 동작 '틀'을 정의합니다. 이름은 bt_kp로 정했습니다.
-        bt_kp: hold_tap_for_bt_and_kp {
+        // 2. 두 개의 일반 키 입력을 받는 안정적인 hold-tap 템플릿을 정의합니다.
+        kp_ht: hold_tap_for_kp {
             compatible = "zmk,behavior-hold-tap";
-            label = "HOLD_TAP_BT_KP";
-            #binding-cells = <2>; // 파라미터를 2개 받는다고 정의합니다.
+            // label = "KP_HT"; // 이 속성은 이제 사용되지 않으므로 제거합니다.
+            #binding-cells = <2>;
             tapping-term-ms = <280>;
             flavor = "tap-preferred";
 
-            // 2. 이 '틀'은 첫 번째 파라미터로 &bt 동작, 두 번째로 &kp 동작을 받는다고 "선언"합니다.
-            //    (특정 키나 동작을 지정하는 것이 아님)
-            bindings = <&bt>, <&kp>;
+            // 가장 안정적인 <&kp>, <&kp> 타입으로 선언합니다.
+            bindings = <&kp>, <&kp>;
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
-
         default_layer {
             bindings = <
-                &kp F13      &kp F14      &kp F15
-                &kp F16      &kp F17      &kp F18
-                
-                // 3. 위에서 만든 '틀'(&bt_kp)을 사용하고, 여기에 실제 파라미터를 전달합니다.
-                //    홀드 동작 -> BT_CLR_ALL
-                //    탭 동작  -> A
-                &bt_kp BT_CLR_ALL A      &none      &none
+                &kp F13         &kp F14         &kp F15
+                &kp F16         &kp F17         &kp F18
+
+                // 3. 템플릿(&kp_ht)에 별명(&bt_clear_key)과 'A'키를 파라미터로 전달합니다.
+                &kp_ht bt_clear_key A      &none      &none
             >;
         };
     };
