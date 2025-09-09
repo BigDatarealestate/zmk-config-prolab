@@ -3,14 +3,29 @@
 #include <dt-bindings/zmk/bt.h> // 블루투스 기능을 위해 이 줄이 꼭 필요합니다.
 
 / {
+    // 1. hold-tap 동작을 정의하는 behaviors 블록을 추가합니다.
+    behaviors {
+        // 동작의 이름을 ht_a_bt_clr 로 정했습니다. (이름은 원하는대로 바꿀 수 있습니다)
+        ht_a_bt_clr: hold_tap_bluetooth_clear_a {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOLD_TAP_A_BT_CLR";
+            #binding-cells = <2>;
+            tapping-term-ms = <280>; // 길게 누르는 시간을 280ms로 설정 (원하는 시간으로 조절 가능)
+            
+            // 첫 번째: 홀드(길게 누르기) 동작 -> BT_CLR_ALL
+            // 두 번째: 탭(짧게 누르기) 동작 -> A 키
+            bindings = <&bt BT_CLR_ALL>, <&kp A>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             bindings = <
-                &kp F13           &kp F14           &kp F15
-                &kp F16           &kp F17           &kp F18
-                &bt BT_CLR_ALL    &none             &none
+                &kp F13        &kp F14        &kp F15
+                &kp F16        &kp F17        &kp F18
+                &ht_a_bt_clr   &none          &none // 2. 기존 &bt BT_CLR_ALL을 새로 만든 동작으로 교체
             >;
         };
     };
