@@ -3,13 +3,13 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
-    // 1. 공식 문서에서 권장하는 해결책: 매크로 생성
-    macros {
-        bt_clear: bluetooth_clear_macro {
-            compatible = "zmk,behavior-macro";
-            label = "BT_CLEAR_ALL";
-            #binding-cells = <0>;
-            bindings = <&bt BT_CLR_ALL>; // 파라미터가 있는 동작을 여기에 넣음
+    // 'macros' 대신 'key-presses'를 사용해 단순 별명을 만듭니다.
+    // 이것이 더 안정적으로 해석될 수 있습니다.
+    key-presses {
+        compatible = "zmk,key-presses";
+
+        bt_clear: bt_clear_press {
+            bindings = <&bt BT_CLR_ALL>;
         };
     };
 
@@ -21,7 +21,7 @@
             tapping-term-ms = <280>;
             flavor = "tap-preferred";
 
-            // 2. hold-tap 에서는 위에서 만든 간단한 매크로를 사용
+            // 이제 'key-presses'로 만든 별명을 사용합니다.
             bindings = <&bt_clear>, <&kp A>;
         };
     };
