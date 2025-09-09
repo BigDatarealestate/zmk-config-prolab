@@ -1,30 +1,21 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/macros.h> // 매크로를 사용하기 위해 이 줄을 추가합니다.
 
 / {
-    // 1. 복잡한 동작에 간단한 별명을 붙여주는 macros 블록을 추가합니다.
-    macros {
-        bt_clear: bluetooth_clear_macro {
-            compatible = "zmk,behavior-macro";
-            label = "BT_CLEAR_ALL";
-            #binding-cells = <0>;
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings = <&bt BT_CLR_ALL>; // 여기에 복잡한 동작을 넣습니다.
-        };
-    };
-
     behaviors {
-        ht_a_bt_clr: hold_tap_bluetooth_clear_a {
+        // 원하는 이름으로 hold-tap 동작을 정의합니다. 예: a_bt_clr
+        a_bt_clr: hold_tap_a_bt_clr {
             compatible = "zmk,behavior-hold-tap";
-            label = "HOLD_TAP_A_BT_CLR";
+            label = "A_BT_CLR";
             #binding-cells = <2>;
-            tapping-term-ms = <280>;
-            
-            // 2. hold-tap에서는 위에서 만든 간단한 별명을 사용합니다.
-            bindings = <&bt_clear>, <&kp A>;
+            tapping-term-ms = <280>; // 홀드 판정 시간 (ms)
+            flavor = "tap-preferred"; // 탭 우선으로 설정해 빠른 타이핑에 유리하게 합니다.
+
+            // bindings에 두 가지 동작을 바로 할당합니다.
+            // 첫 번째: 홀드(길게 누르기) 동작
+            // 두 번째: 탭(짧게 누르기) 동작
+            bindings = <&bt BT_CLR_ALL>, <&kp A>;
         };
     };
 
@@ -33,9 +24,9 @@
 
         default_layer {
             bindings = <
-                &kp F13        &kp F14        &kp F15
-                &kp F16        &kp F17        &kp F18
-                &ht_a_bt_clr   &none          &none
+                &kp F13      &kp F14      &kp F15
+                &kp F16      &kp F17      &kp F18
+                &a_bt_clr    &none        &none  // 새로 만든 hold-tap 동작을 여기에 적용
             >;
         };
     };
