@@ -41,7 +41,7 @@
             tapping-term-ms = <200>;
             
             // 길게 누를 때의 동작: 1번 레이어로 전환
-            bindings-hold = <&mo 1>;
+            bindings-tap-hold = <&mo 1>;
         };
     };
 };
