@@ -6,42 +6,27 @@
     keymap {
         compatible = "zmk,keymap";
 
-        // --- 레이어 0: 기본 ---
         default_layer {
             bindings = <
                 &kp F13      &kp F14      &kp F15
                 &kp F16      &kp F17      &kp F18
-                
-                // Tap Dance 행동 호출
-                &td_a_layer        &none        &none
-            >;
-        };
 
-        // --- 레이어 1: 기능 ---
-        function_layer {
-            bindings = <
-                &trans       &trans       &trans
-                &trans       &trans       &trans
-                
-                // &td_a_layer를 길게 누르면 이 키가 활성화됩니다.
-                &kp Z        &trans       &trans
+                // 짧게 → A, 길게 → 블루투스 리스트 클리어
+                &ht_a_btclear   &none        &none
             >;
         };
     };
 
     behaviors {
-        td_a_layer: tap_dance_a_layer {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            
-            // 짧게 누를 때의 동작: A 키 입력
-            bindings = <&kp A>;
-            
-            // 길게 누르는 동작과 구분하는 시간
-            tapping-term-ms = <200>;
-            
-            // 길게 누를 때의 동작: 1번 레이어로 전환
-            bindings-tap-hold = <&mo 1>;
+        ht_a_btclear: hold_tap_a_btclear {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+
+            flavor = "tap-preferred";   // 짧게 탭 우선
+            tapping-term-ms = <200>;    // 200ms 기준 짧게/길게 구분
+
+            bindings = <&kp A>, <&bt BT_CLR>;
+            // [0] 탭 → A, [1] 홀드 → 블루투스 클리어
         };
     };
 };
