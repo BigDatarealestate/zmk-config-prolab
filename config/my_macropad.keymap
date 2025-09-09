@@ -1,35 +1,30 @@
-#include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
 / {
-    key-presses {
-        compatible = "zmk,key-presses";
-
-        // 문제가 되는 BT_CLR_ALL 대신, 안전한 BT_SEL 0 명령어로 변경
-        bt_clear_key: bt_clear_press {
-            bindings = <&bt BT_SEL 0>, <&bt BT_SEL 0>;
-        };
-    };
-
-    behaviors {
-        kp_ht: hold_tap_for_kp {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <280>;
-            flavor = "tap-preferred";
-            bindings = <&kp>, <&kp>;
-        };
-    };
-
     keymap {
-        // ... (이하 동일)
         compatible = "zmk,keymap";
+
+        // --- 레이어 0: 기본 ---
         default_layer {
             bindings = <
-                &kp F13         &kp F14         &kp F15
-                &kp F16         &kp F17         &kp F18
-                &kp_ht &bt_clear_key A      &none      &none
+                &kp F13      &kp F14      &kp F15
+                &kp F16      &kp F17      &kp F18
+                
+                // 1. A키를 길게 누르면 1번 레이어로 이동(&lt 1), 짧게 누르면 A 입력(&kp A)
+                &lt 1 A      &none        &none
+            >;
+        };
+
+        // --- 레이어 1: 기능 ---
+        function_layer {
+            bindings = <
+                &trans       &trans       &trans
+                &trans       &trans       &trans
+
+                // 2. 1번 레이어의 같은 위치에 블루투스 초기화 명령을 배치
+                //    A키를 길게 누르고 있으면 이 키가 활성화됩니다.
+                &bt BT_CLR_ALL   &trans       &trans
             >;
         };
     };
