@@ -22,11 +22,12 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
 
-            flavor = "tap-preferred";   // 짧게 탭 우선
-            tapping-term-ms = <200>;    // 200ms 기준 짧게/길게 구분
+            flavor = "tap-preferred";   // 탭 우선
+            tapping-term-ms = <200>;    // 200ms 이내면 탭
 
-            bindings = <&kp A>, <&bt BT_CLR>;
-            // [0] 탭 → A, [1] 홀드 → 블루투스 클리어
+            bindings = <&kp A &bt BT_CLR>;
+            // [0] 탭 → A
+            // [1] 홀드 → 블루투스 리스트 클리어
         };
     };
 };
