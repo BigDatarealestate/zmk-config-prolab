@@ -11,22 +11,28 @@
                 &kp F13      &kp F14      &kp F15
                 &kp F16      &kp F17      &kp F18
 
-                // 짧게 → A, 길게 → 모든 블루투스 페어링 삭제
+                // 짧게 → A, 길게 → 블루투스 전체 삭제
                 &ht_a_btclear   &none        &none
             >;
         };
     };
 
     behaviors {
+        // 블루투스 클리어 동작 정의
+        btclr: bt_clear {
+            compatible = "zmk,behavior-bluetooth-clear";
+            label = "BT_CLR";
+        };
+
         // Hold-Tap: 짧게 누르면 A, 길게 누르면 BT_CLR
         ht_a_btclear: hold_tap_a_btclear {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
 
-            flavor = "tap-preferred";   // 탭 우선 동작
-            tapping-term-ms = <200>;    // 200ms 이내면 탭 처리
+            flavor = "tap-preferred";   // 짧게 누르면 tap 우선
+            tapping-term-ms = <200>;    // 200ms 이내면 tap 처리
 
-            bindings = <&kp A &bt BT_CLR>;
+            bindings = <&kp A &btclr>;
         };
     };
 };
