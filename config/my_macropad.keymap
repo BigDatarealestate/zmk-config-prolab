@@ -3,17 +3,16 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
-    // 1. 복잡한 블루투스 동작에 'bt_clear_key' 라는 간단한 별명을 붙입니다.
     key-presses {
         compatible = "zmk,key-presses";
 
+        // 문제가 되는 BT_CLR_ALL 대신, 안전한 BT_SEL 0 명령어로 변경
         bt_clear_key: bt_clear_press {
-            bindings = <&bt BT_CLR_ALL>;
+            bindings = <&bt BT_SEL 0>, <&bt BT_SEL 0>;
         };
     };
 
     behaviors {
-        // 2. 두 개의 일반 키 입력을 받는 안정적인 hold-tap 템플릿을 정의합니다.
         kp_ht: hold_tap_for_kp {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -24,13 +23,12 @@
     };
 
     keymap {
+        // ... (이하 동일)
         compatible = "zmk,keymap";
         default_layer {
             bindings = <
                 &kp F13         &kp F14         &kp F15
                 &kp F16         &kp F17         &kp F18
-
-                // 3. bt_clear_key 앞에 '&'를 추가하여 참조임을 명시합니다.
                 &kp_ht &bt_clear_key A      &none      &none
             >;
         };
