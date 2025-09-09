@@ -12,9 +12,8 @@
                 &kp F13      &kp F14      &kp F15
                 &kp F16      &kp F17      &kp F18
                 
-                // &lt 1 A 대신 &mo 1을 사용합니다.
-                // A키를 누르고 있는 동안 1번 레이어로 이동합니다.
-                &mo 1        &none        &none
+                // &lt 1 A 대신 &td 0을 사용하고, tap-dance에 A 키와 레이어 전환을 정의합니다.
+                &td 0        &none        &none
             >;
         };
 
@@ -24,9 +23,21 @@
                 &trans       &trans       &trans
                 &trans       &trans       &trans
                 
-                // &mo 1을 누른 상태에서 이 키가 활성화됩니다.
+                // &td 0을 누른 상태에서 이 키가 활성화됩니다.
                 &kp Z        &trans       &trans
             >;
+        };
+    };
+
+    // --- 탭 댄스 정의 ---
+    behaviors {
+        td_0: tap_dance_0 {
+            compatible = "zmk,behavior-tap-dance";
+            // 짧게 누를 때의 동작: A 키 입력
+            bindings = <&kp A>;
+            // 길게 누를 때의 동작: 1번 레이어로 전환
+            term_delay_ms = <200>; // 200ms 이상 누르면 길게 누른 것으로 인식
+            bindings-hold = <&mo 1>;
         };
     };
 };
