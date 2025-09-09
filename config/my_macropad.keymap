@@ -3,19 +3,26 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
+    // 1. 공식 문서에서 권장하는 해결책: 매크로 생성
+    macros {
+        bt_clear: bluetooth_clear_macro {
+            compatible = "zmk,behavior-macro";
+            label = "BT_CLEAR_ALL";
+            #binding-cells = <0>;
+            bindings = <&bt BT_CLR_ALL>; // 파라미터가 있는 동작을 여기에 넣음
+        };
+    };
+
     behaviors {
-        // 원하는 이름으로 hold-tap 동작을 정의합니다. 예: a_bt_clr
         a_bt_clr: hold_tap_a_bt_clr {
             compatible = "zmk,behavior-hold-tap";
             label = "A_BT_CLR";
             #binding-cells = <2>;
-            tapping-term-ms = <280>; // 홀드 판정 시간 (ms)
-            flavor = "tap-preferred"; // 탭 우선으로 설정해 빠른 타이핑에 유리하게 합니다.
+            tapping-term-ms = <280>;
+            flavor = "tap-preferred";
 
-            // bindings에 두 가지 동작을 바로 할당합니다.
-            // 첫 번째: 홀드(길게 누르기) 동작
-            // 두 번째: 탭(짧게 누르기) 동작
-            bindings = <&bt BT_CLR_ALL>, <&kp A>;
+            // 2. hold-tap 에서는 위에서 만든 간단한 매크로를 사용
+            bindings = <&bt_clear>, <&kp A>;
         };
     };
 
@@ -26,7 +33,7 @@
             bindings = <
                 &kp F13      &kp F14      &kp F15
                 &kp F16      &kp F17      &kp F18
-                &a_bt_clr    &none        &none  // 새로 만든 hold-tap 동작을 여기에 적용
+                &a_bt_clr    &none        &none
             >;
         };
     };
