@@ -1,3 +1,5 @@
+// my_macropad.keymap
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
@@ -6,23 +8,18 @@
     keymap {
         compatible = "zmk,keymap";
 
-        // Hold-Tap 동작을 정의합니다.
-        // 이 예시에서는 전역 설정에 의존합니다.
-        // 필요에 따라 아래와 같이 개별적으로 정의할 수 있습니다:
-        // hold_tap_a_bt_clear: hold_tap_a_bt_clear {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     label = "A_BT_CLEAR";
-        //     bindings = <&bt BT_CLR_ALL>, <&kp A>;
-        //     tapping-term-ms = <200>;
-        // };
-
         default_layer {
             bindings = <
                 &kp F13         &kp F14         &kp F15
                 &kp F16         &kp F17         &kp F18
-                // 이 부분을 수정했습니다.
-                // 첫 번째 인자는 홀드 동작(&bt BT_CLR_ALL), 두 번째 인자는 탭 동작(&kp A) 입니다.
-                &hold_tap 500 &bt BT_CLR_ALL &kp A  &none &none
+                // Full binding syntax
+                &hold_tap
+                    {
+                        tapping-term-ms = <500>;
+                        bindings = <&bt BT_CLR_ALL>, <&kp A>;
+                    }
+                &none
+                &none
             >;
         };
     };
