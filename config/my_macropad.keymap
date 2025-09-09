@@ -1,16 +1,38 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/bt.h> // 블루투스 기능을 위해 이 줄이 꼭 필요합니다.
+#include <dt-bindings/zmk/bt.h>
 
 / {
     keymap {
         compatible = "zmk,keymap";
 
+        // --- 레이어 0: 기본 레이어 ---
         default_layer {
             bindings = <
-                &kp F13           &kp F14           &kp F15
-                &kp F16           &kp F17           &kp F18
-                &bt BT_CLR_ALL    &none             &none
+                // 1번 키(A 위치): 짧게 누르면 A, 길게 누르면 레이어 1로 전환
+                &lt 1 A      
+                // 2번 키(B 위치): B 입력
+                &kp B      
+                // 3번 키(C 위치): C 입력
+                &kp C
+                // 4번 키(D 위치): D 입력
+                &kp D      
+                // 5번 키(E 위치): E 입력
+                &kp E      
+                // 6번 키(F 위치): F 입력
+                &kp F
+            >;
+        };
+
+        // --- 레이어 1: 기능 레이어 ---
+        function_layer {
+            bindings = <
+                // 1번 키 위치: 아래 레이어의 A 키 동작을 그대로 따름
+                &trans      
+                // 2번 키 위치: 블루투스 클리어 동작을 할당
+                &bt BT_CLR   
+                // 나머지 키들: 아래 레이어 키의 동작을 따름
+                &trans       &trans       &trans       &trans
             >;
         };
     };
