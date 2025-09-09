@@ -32,14 +32,15 @@
     behaviors {
         td_a_layer: tap_dance_a_layer {
             compatible = "zmk,behavior-tap-dance";
-            // 필수 속성: 바인딩 인자가 없음을 의미
             #binding-cells = <0>;
             
             // 짧게 누를 때의 동작: A 키 입력
             bindings = <&kp A>;
             
+            // 길게 누르는 동작과 구분하는 시간
+            tapping-term-ms = <200>;
+            
             // 길게 누를 때의 동작: 1번 레이어로 전환
-            term_delay_ms = <200>;
             bindings-hold = <&mo 1>;
         };
     };
