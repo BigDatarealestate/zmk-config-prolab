@@ -10,7 +10,7 @@
          default_layer {
             bindings = <
                 // 1번 키(F13 위치): 짧게 누르면 F13, 길게 누르면 레이어 1로 전환
-                &lt C_VOL_DN      
+                &kp C_VOL_DN      
                 // 2번 키(F14 위치): F14 입력
                 &kp F14      
                 // 3번 키(F15 위치): F15 입력
