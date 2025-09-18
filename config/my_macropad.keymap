@@ -24,16 +24,5 @@
             >;
         };
 
-        // --- 레이어 1: 기능 레이어 ---
-        function_layer {
-            bindings = <
-                // 1번 키 위치: 아래 레이어의 A 키 동작을 그대로 따름
-                &trans      
-                // 2번 키 위치: 블루투스 클리어 동작을 할당
-                &trans   
-                // 나머지 키들: 아래 레이어 키의 동작을 따름
-                &trans       &trans       &trans       &bt BT_CLR_ALL
-            >;
-        };
     };
 };
