@@ -1,13 +1,10 @@
-// boards/shields/my_macropad/my_macropad.overlay
-
 #include <dt-bindings/zmk/matrix_transform.h>
 
 / {
-    // 'chosen' 노드가 핵심입니다.
-    // 이 노드는 zmk,kscan (GPIO 핀 정보)과
-    // zmk,matrix_transform (물리적 배열 정보)을 연결하는 역할을 합니다.
     chosen {
         zmk,kscan = &kscan0;
+        // 👇 이 줄을 기존 chosen 블록 안에 추가합니다.
+        zmk,battery = &vbatt; 
     };
 
     kscan0: kscan_0 {
@@ -24,5 +21,14 @@
             , <&gpio0 6  (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>
             , <&gpio0 31  (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>
             ;
+    };
+
+    // 👇 kscan0 블록 아래에 이 부분을 통째로 추가합니다.
+    vbatt: vbatt {
+        compatible = "zmk,battery-voltage-divider";
+        label = "BATTERY";
+        io-channels = <&adc 0>;
+        output-ohms = <2000000>;
+        full-ohms = <(2000000 + 820000)>;
     };
 };
